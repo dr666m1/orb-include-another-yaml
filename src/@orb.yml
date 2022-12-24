@@ -10,7 +10,7 @@ orbs:
             type: string
         steps:
           - run: |
-              cat <<EOF  > script.py
+              cat \<<EOF  > script.py
               <<parameters.str>>
               EOF
 
