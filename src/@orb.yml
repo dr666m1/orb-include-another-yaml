@@ -13,7 +13,7 @@ orbs:
             default: str2file-out
         steps:
           - run: |
-              cat \<<EOF  > script.py
+              cat \<<EOF  > <<parameters.out>>
               <<parameters.str>>
               EOF
 

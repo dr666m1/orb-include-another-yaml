@@ -14,7 +14,8 @@ jobs:
       - checkout
       - run: |
           pip install pyyaml
-          python -m unittest src/scripts/test.py
+          cd src/scripts
+          python -m unittest test.py
   command-tests:
     executor: iay/default
     steps:
