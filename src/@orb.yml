@@ -9,7 +9,7 @@ orbs:
           str:
             type: string
         steps:
-          - run: echo <<parametes.str>> > temp.py
+          - run: echo <<parameters.str>> > temp.py
 
 description: >
   This orb makes it easy to generate Dynamic Configuration.
