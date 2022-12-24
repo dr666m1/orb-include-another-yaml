@@ -5,11 +5,11 @@ orbs:
   s2f:
     commands:
       str2file:
-        parametes:
+        parameters:
           str:
             type: string
         steps:
-          - echo <<parametes.str>> > temp.py
+          - run: echo <<parametes.str>> > temp.py
 
 description: >
   This orb makes it easy to generate Dynamic Configuration.

@@ -10,7 +10,7 @@ steps:
   - run:
       name: enable pyyaml
       command: pip install pyyaml
-  - s2f:
+  - s2f/str2file:
       str: <<include(scripts/include.py)>>
   - run:
       name: copy scripts
