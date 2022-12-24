@@ -9,7 +9,10 @@ orbs:
           str:
             type: string
         steps:
-          - run: echo <<parameters.str>> > temp.py
+          - run: |
+              cat <<EOF  > script.py
+              <<parameters.str>>
+              EOF
 
 description: >
   This orb makes it easy to generate Dynamic Configuration.

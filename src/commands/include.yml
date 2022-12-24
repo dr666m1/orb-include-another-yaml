@@ -13,12 +13,7 @@ steps:
   - s2f/str2file:
       str: <<include(scripts/include.py)>>
   - run:
-      name: copy scripts
-      environment:
-      command: |
-        cat temp.py
-  - run:
       name: include YAML file inside another
       environment:
         PARAM_FILEPATH: <<parameters.filepath>>
-      command: python include.py
+      command: python script.py
