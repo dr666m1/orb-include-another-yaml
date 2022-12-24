@@ -8,6 +8,9 @@ orbs:
         parameters:
           str:
             type: string
+          out:
+            type: string
+            default: str2file-out
         steps:
           - run: |
               cat \<<EOF  > script.py

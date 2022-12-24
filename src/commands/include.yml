@@ -11,9 +11,9 @@ steps:
       name: enable pyyaml
       command: pip install pyyaml
   - s2f/str2file:
-      str: <<include(scripts/include.py)>>
+      str: <<include(scripts/main.py)>>
   - run:
       name: include YAML file inside another
       environment:
         PARAM_FILEPATH: <<parameters.filepath>>
-      command: python script.py
+      command: python str2file-out

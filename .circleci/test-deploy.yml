@@ -8,15 +8,25 @@ filters: &filters
     only: /.*/
 
 jobs:
+  python-tests:
+    executor: iay/default
+    steps:
+      - checkout
+      - run: |
+          pip install pyyaml
+          python -m unittest src/scripts/test.py
   command-tests:
     executor: iay/default
     steps:
       - checkout
       - iay/include:
           filepath: dummy
+
 workflows:
   test-deploy:
     jobs:
+      - python-tests:
+          filters: *filters
       - command-tests:
           filters: *filters
       - orb-tools/pack:
