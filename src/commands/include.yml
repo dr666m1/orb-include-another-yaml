@@ -13,9 +13,10 @@ steps:
   - run:
       name: copy scripts
       environment:
-        INCLUDE_SCRIPT: <<include(scripts/include.py)>>
       command: |
-        echo $INCLUDE_SCRIPT > include.py
+        echo before include
+        <<include(scripts/include.py)>>
+        echo after include
   - run:
       name: include YAML file inside another
       environment:
