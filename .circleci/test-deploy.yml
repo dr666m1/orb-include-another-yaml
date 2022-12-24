@@ -13,6 +13,7 @@ jobs:
     steps:
       - checkout
       - iay/include
+          filepath: dummy
 workflows:
   test-deploy:
     jobs:
