@@ -12,7 +12,7 @@ jobs:
     executor: iay/default
     steps:
       - checkout
-      - iay/include
+      - iay/include:
           filepath: dummy
 workflows:
   test-deploy:
