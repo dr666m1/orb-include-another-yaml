@@ -8,5 +8,5 @@ usage:
   workflows:
     use-my-orb:
       jobs:
-        - yi/continue
+        - yi/continue:
             filepath: filepath.yml
