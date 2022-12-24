@@ -10,13 +10,13 @@ steps:
   - run:
       name: enable pyyaml
       command: pip install pyyaml
+  - s2f:
+      str: <<include(scripts/include.py)>>
   - run:
       name: copy scripts
       environment:
       command: |
-        echo before include
-        <<include(scripts/include.py)>>
-        echo after include
+        cat temp.py
   - run:
       name: include YAML file inside another
       environment:

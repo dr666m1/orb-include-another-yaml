@@ -2,6 +2,14 @@ version: 2.1
 
 orbs:
   continuation: circleci/continuation@0.3
+  s2f:
+    commands:
+      str2file:
+        parametes:
+          str:
+            type: string
+        steps:
+          - echo <<parametes.str>> > temp.py
 
 description: >
   This orb makes it easy to generate Dynamic Configuration.
