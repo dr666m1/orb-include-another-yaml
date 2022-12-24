@@ -1,5 +1,5 @@
 description: >
-  This job handles !import tag inside configuration file
+  This job handles !include tag inside configuration file
   and continue the pipeline using circleci/continuation orb.
 
 executor: default
@@ -10,5 +10,5 @@ parameters:
     description: "configuration file"
 
 steps:
-  - import:
+  - include:
       filepath: << parameters.filepath >>

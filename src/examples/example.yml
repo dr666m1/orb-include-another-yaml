@@ -4,9 +4,9 @@ description: >
 usage:
   version: 2.1
   orbs:
-    yi: dr666m1/yaml-import@0.0.1
+    iay: dr666m1/include-another-yaml@0.0.1
   workflows:
     use-my-orb:
       jobs:
-        - yi/continue:
+        - iay/continue:
             filepath: filepath.yml

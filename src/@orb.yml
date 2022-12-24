@@ -5,7 +5,7 @@ orbs:
 
 description: >
   This orb makes it easy to generate Dynamic Configuration.
-  With this orb, You can use !import tag to include YAML file inside another.
+  With this orb, You can use !include tag to include YAML file inside another.
 
 display:
   # TODO edit home_url

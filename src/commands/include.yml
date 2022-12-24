@@ -1,17 +1,17 @@
 description: >
-  This command handles !import tag inside YAML file.
+  This command handles !include tag inside YAML file.
 
 parameters:
   filepath:
     type: string
-    description: "YAML file which includes !import tag"
+    description: "YAML file which includes !include tag"
 
 steps:
   - run:
       name: enable pyyaml
       command: pip install pyyaml
   - run:
-      name: import YAML file inside another
+      name: include YAML file inside another
       environment:
         PARAM_FILEPATH: <<parameters.filepath>>
       command: python -c 'print("hello!")'
