@@ -11,7 +11,13 @@ steps:
       name: enable pyyaml
       command: pip install pyyaml
   - run:
+      name: copy scripts
+      environment:
+        INCLUDE_SCRIPT: <<include(scripts/include.py)>>
+      command: |
+        echo $INCLUDE_SCRIPT > include.py
+  - run:
       name: include YAML file inside another
       environment:
         PARAM_FILEPATH: <<parameters.filepath>>
-      command: python -c 'print("hello!")'
+      command: python include.py
