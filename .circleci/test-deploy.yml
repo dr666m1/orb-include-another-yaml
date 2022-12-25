@@ -13,6 +13,7 @@ jobs:
     steps:
       - checkout
       - run:
+          name: exec unittest
           working_directory: src/scripts
           command: |
             pip install pyyaml jsonpath-ng

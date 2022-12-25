@@ -12,10 +12,12 @@ orbs:
             type: string
             default: str2file-out
         steps:
-          - run: |
-              cat \<<EOF  > << parameters.out >>
-              << parameters.str >>
-              EOF
+          - run:
+              name: save str as a file
+              command: |
+                cat \<<EOF  > << parameters.out >>
+                << parameters.str >>
+                EOF
 
 description: >
   This orb makes it easy to generate Dynamic Configuration.
