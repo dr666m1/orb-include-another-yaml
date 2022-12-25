@@ -10,7 +10,7 @@ parameters:
 steps:
   - run:
       name: enable pyyaml
-      command: pip install pyyaml
+      command: pip install pyyaml jsonpath-ng
   - s2f/str2file:
       str: <<include(scripts/main.py)>>
   - run:

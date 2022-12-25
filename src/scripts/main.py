@@ -2,6 +2,7 @@ import contextlib
 import os
 import yaml
 
+import jsonpath_ng
 
 class Import(yaml.YAMLObject):
     yaml_tag = "!include"
@@ -9,7 +10,7 @@ class Import(yaml.YAMLObject):
     @classmethod
     def from_yaml(cls, _, node):
         filepath = None
-        keypath = None
+        jsonpath = '$'
 
         if isinstance(node, yaml.ScalarNode):
             filepath = node.value
@@ -18,8 +19,8 @@ class Import(yaml.YAMLObject):
                 match key := item[0].value:
                     case "filepath":
                         filepath = item[1].value
-                    case "keypath":
-                        keypath = item[1].value
+                    case "jsonpath":
+                        jsonpath = item[1].value
                     case _:
                         raise Exception(f"got unnexpected parameter: {key}")
 
@@ -33,8 +34,12 @@ class Import(yaml.YAMLObject):
         ):
             obj = yaml.full_load(f)
 
-        if keypath is not None:
-            obj = obj[keypath]
+        temp = jsonpath_ng.parse(jsonpath).find(obj)
+        if len(temp) == 1:
+            obj = temp[0].value
+        else:
+            obj = [x.value for x in temp]
+
         return obj
 
 

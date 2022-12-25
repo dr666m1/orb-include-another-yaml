@@ -15,7 +15,7 @@ jobs:
       - run:
           working_directory: src/scripts
           command: |
-            pip install pyyaml
+            pip install pyyaml jsonpath-ng
             python -m unittest test.py
   command-tests:
     executor: iay/default
