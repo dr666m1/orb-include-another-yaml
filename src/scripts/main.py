@@ -5,6 +5,10 @@ import yaml
 import jsonpath_ng
 
 
+class Error(Exception):
+    """Base-class for all exceptions raised by this module"""
+
+
 class Import(yaml.YAMLObject):
     yaml_tag = "!include"
 
@@ -15,7 +19,7 @@ class Import(yaml.YAMLObject):
 
         if isinstance(node, yaml.ScalarNode):
             filepath = node.value
-        else:
+        elif isinstance(node, yaml.MappingNode):
             for item in node.value:
                 match key := item[0].value:
                     case "filepath":
@@ -23,10 +27,14 @@ class Import(yaml.YAMLObject):
                     case "jsonpath":
                         jsonpath = item[1].value
                     case _:
-                        raise Exception(f"got unnexpected parameter: {key}")
+                        raise Error(f"got unexpected parameter: {key}")
+        else:
+            raise Error(
+                f"expected ScalarNode or MappingNode but got: {node.__class__.__name__}"
+            )
 
         if filepath is None:
-            raise Exception("filepath is not specified!")
+            raise Error("filepath is not specified!")
 
         filepath = os.path.abspath(filepath)
         with (
@@ -49,7 +57,7 @@ def main(filepath=None, overwrite=True):
         filepath = os.getenv("PARAM_FILEPATH")
 
     if filepath is None:
-        raise Exception("PARAM_FILEPATH is not specified!")
+        raise Error("PARAM_FILEPATH is not specified!")
 
     filepath = os.path.abspath(filepath)
     with (
