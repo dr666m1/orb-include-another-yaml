@@ -1,0 +1,59 @@
+description: >
+  You can use !include tag to include another YAML file.
+  When including entire YAML file, you can omit jsonpath parameter
+  (it is equivalent to set jsonpath '$').
+  It is even valid to omit filepath keyword (see workflows section).
+
+  If several YAML files are passed,
+  they are concatenated into single array (see jobs section).
+
+usage:
+  usage: |
+    # main.yml
+    version: !include
+      filepath: ./constants.yml
+      jsonpath: '$.version'
+    jobs: !include
+      - filepath: ./jobs1.yml
+        jsonpath: '$'
+      - filepath: ./jobs2.yml
+    workflows: !include ./workflows.yml
+
+    ---
+    # constants.yml
+    version: 2.1
+
+    ---
+    # jobs1.yml
+    - jobs1-job:
+        docker:
+          image: cimg/base
+        steps:
+          - run: echo "this is jobs1.yml"
+
+    ---
+    # workflows.yml
+    main:
+      jobs:
+        - jobs1-job
+        - jobs2-job
+
+    ---
+    # main.yml (after other YAML files are included)
+    version: 2.1
+    jobs:
+      - jobs1-job:
+          docker:
+            image: cimg/base
+          steps:
+            - run: echo "this is jobs1.yml"
+      - jobs2-job:
+          docker:
+            image: cimg/base
+          steps:
+            - run: echo "this is jobs2.yml"
+    workflows:
+        main:
+          jobs:
+            - jobs1-job
+            - jobs2-job
