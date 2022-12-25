@@ -1,5 +1,6 @@
 description: >
   This command handles !include tag inside YAML file.
+  The file will be overwritten.
 
 parameters:
   filepath:

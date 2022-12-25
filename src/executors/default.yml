@@ -6,6 +6,6 @@ parameters:
   tag:
     default: "3.11"
     description: >
-      Pick a specific cimg/python image variant (3.10 or later is required):
+      Pick a specific cimg/python image variant (3.11 or later is required):
       https://hub.docker.com/r/cimg/python/tags
     type: string
