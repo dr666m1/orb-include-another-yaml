@@ -21,3 +21,5 @@ executor:
 steps:
   - include:
       filepath: << parameters.filepath >>
+  - continuation/continue:
+      configuration_path: << parameters.filepath >>
