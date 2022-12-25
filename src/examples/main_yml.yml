@@ -1,59 +1,63 @@
 description: >
-  You can use !include tag to include another YAML file.
-  When including entire YAML file, you can omit jsonpath parameter
-  (it is equivalent to set jsonpath '$').
-  It is even valid to omit filepath keyword (see workflows section).
+  You can use !include tag to include other YAML files.
+
+  When including entire YAML file, you can omit jsonpath parameter.
+  It is even valid to omit filepath keyword (see executors section).
 
   If several YAML files are passed,
   they are concatenated into single array (see jobs section).
 
-usage:
-  usage: |
-    # main.yml
-    version: !include
-      filepath: ./constants.yml
-      jsonpath: '$.version'
-    jobs: !include
+  --------------------
+  # main.yml (before other files are included)
+  version: !include
+    filepath: ./constants.yml
+    jsonpath: '$.version'
+  executors: !include ./executors.yml
+  jobs:
+    executor: main-executor
+    steps: !include
       - filepath: ./jobs1.yml
-        jsonpath: '$'
       - filepath: ./jobs2.yml
-    workflows: !include ./workflows.yml
+  workflows: !include ./workflows.yml
 
-    ---
-    # constants.yml
-    version: 2.1
+  ---
+  # constants.yml
+  version: 2.1
 
-    ---
-    # jobs1.yml
-    - jobs1-job:
-        docker:
-          image: cimg/base
-        steps:
-          - run: echo "this is jobs1.yml"
+  ---
+  # executors.yml
+  main-executor:
+    docker:
+      - image: cimg/base
 
-    ---
-    # workflows.yml
-    main:
-      jobs:
-        - jobs1-job
-        - jobs2-job
+  ---
+  # steps1.yml
+  - run: echo "this is first step of steps1.yml"
+  - run: echo "this is second step of steps1.yml"
 
-    ---
-    # main.yml (after other YAML files are included)
-    version: 2.1
-    jobs:
-      - jobs1-job:
-          docker:
-            image: cimg/base
-          steps:
-            - run: echo "this is jobs1.yml"
-      - jobs2-job:
-          docker:
-            image: cimg/base
-          steps:
-            - run: echo "this is jobs2.yml"
-    workflows:
-        main:
-          jobs:
-            - jobs1-job
-            - jobs2-job
+  ---
+  # steps2.yml
+  - run: echo "this is only step of steps2.yml"
+
+  --------------------
+
+  After other YAML files are included, main.yml looks like this.
+
+
+usage:
+  version: 2.1
+  executors:
+    main-executor:
+      docker:
+        - image: cimg/base
+  jobs:
+    main-job:
+      executor: main-executor
+      steps:
+        - run: echo "this is first step of steps1.yml"
+        - run: echo "this is second step of steps1.yml"
+        - run: echo "this is only step of steps2.yml"
+  workflows:
+      main-workflow:
+        jobs:
+          - main-job
