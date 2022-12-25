@@ -21,7 +21,7 @@ jobs:
     steps:
       - checkout
       - iay/include:
-          filepath: testcase/input/simple
+          filepath: testcase/input/simple.yml
 
 workflows:
   test-deploy:
