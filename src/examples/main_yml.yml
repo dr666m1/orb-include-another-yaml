@@ -14,11 +14,11 @@ description: >
     jsonpath: '$.version'
   executors: !include ./executors.yml
   jobs:
-    executor: main-executor
-    steps: !include
-      - filepath: ./jobs1.yml
-      - filepath: ./jobs2.yml
-  workflows: !include ./workflows.yml
+    build:
+      executor: main-executor
+      steps: !include
+        - filepath: ./jobs1.yml
+        - filepath: ./jobs2.yml
 
   ---
   # constants.yml
@@ -51,13 +51,9 @@ usage:
       docker:
         - image: cimg/base
   jobs:
-    main-job:
+    build:
       executor: main-executor
       steps:
         - run: echo "this is first step of steps1.yml"
         - run: echo "this is second step of steps1.yml"
         - run: echo "this is only step of steps2.yml"
-  workflows:
-      main-workflow:
-        jobs:
-          - main-job
