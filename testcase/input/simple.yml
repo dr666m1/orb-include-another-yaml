@@ -1,1 +1,3 @@
 foo: !include ./sub/simple.yml
+bar: !include
+  filepath: ./sub/simple.yml

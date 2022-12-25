@@ -1,3 +1,6 @@
 foo:
-  one: 1
-  two: 2
+  foo: 1
+  bar: 2
+bar:
+  foo: 1
+  bar: 2
