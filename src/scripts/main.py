@@ -26,7 +26,11 @@ class Import(yaml.YAMLObject):
         if filepath is None:
             raise Exception("filepath is not specified!")
 
-        with open(filepath, "r") as f:
+        filepath = os.path.abspath(filepath)
+        with (
+            open(filepath, "r") as f,
+            contextlib.chdir(os.path.dirname(filepath)),
+        ):
             obj = yaml.full_load(f)
 
         if keypath is not None:
@@ -35,12 +39,13 @@ class Import(yaml.YAMLObject):
 
 
 def main(filepath=None, overwrite=True):
-    if filepath == None:
+    if filepath is None:
         filepath = os.getenv("PARAM_FILEPATH")
 
     if filepath is None:
         raise Exception("PARAM_FILEPATH is not specified!")
 
+    filepath = os.path.abspath(filepath)
     with (
         open(filepath, "r") as f,
         contextlib.chdir(os.path.dirname(filepath)),

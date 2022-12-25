@@ -1,1 +1,1 @@
-foo: !include ./sub/constants.yml
+foo: !include ./sub/simple.yml

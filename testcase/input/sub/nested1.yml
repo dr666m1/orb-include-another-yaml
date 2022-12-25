@@ -1,0 +1,1 @@
+foo: !include ./nested2.yml
