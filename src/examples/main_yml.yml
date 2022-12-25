@@ -1,0 +1,59 @@
+description: >
+  You can use !include tag to include other YAML files.
+
+  When including entire YAML file, you can omit jsonpath parameter.
+  It is even valid to omit filepath keyword (see executors section).
+
+  If several YAML files are passed,
+  they are concatenated into single array (see jobs section).
+
+  --------------------
+  # main.yml (before other files are included)
+  version: !include
+    filepath: ./constants.yml
+    jsonpath: '$.version'
+  executors: !include ./executors.yml
+  jobs:
+    build:
+      executor: main-executor
+      steps: !include
+        - filepath: ./jobs1.yml
+        - filepath: ./jobs2.yml
+
+  ---
+  # constants.yml
+  version: 2.1
+
+  ---
+  # executors.yml
+  main-executor:
+    docker:
+      - image: cimg/base
+
+  ---
+  # steps1.yml
+  - run: echo "this is first step of steps1.yml"
+  - run: echo "this is second step of steps1.yml"
+
+  ---
+  # steps2.yml
+  - run: echo "this is only step of steps2.yml"
+
+  --------------------
+
+  After other YAML files are included, main.yml looks like this.
+
+
+usage:
+  version: 2.1
+  executors:
+    main-executor:
+      docker:
+        - image: cimg/base
+  jobs:
+    build:
+      executor: main-executor
+      steps:
+        - run: echo "this is first step of steps1.yml"
+        - run: echo "this is second step of steps1.yml"
+        - run: echo "this is only step of steps2.yml"

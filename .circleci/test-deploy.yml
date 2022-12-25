@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  <orb-name>: <namespace>/<orb-name>@dev:<<pipeline.git.revision>>
+  iay: dr666m1/include-another-yaml@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.5
 
 filters: &filters
@@ -8,35 +8,43 @@ filters: &filters
     only: /.*/
 
 jobs:
-  # Create a job to test the commands of your orbs.
-  # You may want to add additional validation steps to ensure the commands are working as expected.
-  command-tests:
-    docker:
-      - image: cimg/base:current
+  python-tests:
+    executor: iay/default
     steps:
       - checkout
-      # Run your orb's commands to validate them.
-      - <orb-name>/greet
+      - run:
+          name: exec unittest
+          working_directory: src/scripts
+          command: |
+            pip install pyyaml jsonpath-ng
+            python -m unittest test.py
+  command-tests:
+    executor: iay/default
+    steps:
+      - checkout
+      # Testing just one YAML file is enough as all files are testted in python-tests.
+      - iay/build:
+          filepath: testcase/input/valid/simple.yml
+
 workflows:
   test-deploy:
     jobs:
-      # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
+      - python-tests:
+          filters: *filters
       - command-tests:
           filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
-          orb-name: <namespace>/<orb-name>
+          orb-name: dr666m1/include-another-yaml
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
             - orb-tools/pack
             - command-tests
-          context: <publishing-context>
+          context: orb-publishing
           filters:
             branches:
               ignore: /.*/
             tags:
-              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
-
-# VS Code Extension Version: 1.4.0
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/

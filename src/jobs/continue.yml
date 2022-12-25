@@ -1,0 +1,25 @@
+description: >
+  This job handles !include tag inside configuration file
+  and continue the pipeline using circleci/continuation orb.
+
+parameters:
+  filepath:
+    type: string
+    description: "configuration file"
+  tag:
+    type: string
+    description: >
+      Pick a specific cimg/python image variant (3.11 or later is required):
+      https://hub.docker.com/r/cimg/python/tags
+    # depends on the default value of the executor
+    default: null
+
+executor:
+  name: default
+  tag: << parameters.tag >>
+
+steps:
+  - build:
+      filepath: << parameters.filepath >>
+  - continuation/continue:
+      configuration_path: << parameters.filepath >>

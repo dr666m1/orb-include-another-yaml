@@ -8,26 +8,33 @@ filters: &filters
   tags:
     only: /.*/
 
+jobs:
+  python-fmt:
+    docker:
+      - image: cytopia/black
+    steps:
+      - checkout
+      - run: |
+          python -m black --check --diff ./src/scripts
+
 workflows:
   lint-pack:
     jobs:
+      - python-fmt:
+          filters: *filters
       - orb-tools/lint:
           filters: *filters
       - orb-tools/pack:
           filters: *filters
       - orb-tools/review:
           filters: *filters
-      - shellcheck/check:
-          filters: *filters
       - orb-tools/publish:
-          orb-name: <namespace>/<orb-name>
+          orb-name: dr666m1/include-another-yaml
           vcs-type: << pipeline.project.type >>
           requires:
-            [orb-tools/lint, orb-tools/review, orb-tools/pack, shellcheck/check]
-          # Use a context to hold your publishing token.
-          context: <publishing-context>
+            [orb-tools/lint, orb-tools/review, orb-tools/pack]
+          context: orb-publishing
           filters: *filters
-      # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           pipeline-number: << pipeline.number >>
           vcs-type: << pipeline.project.type >>

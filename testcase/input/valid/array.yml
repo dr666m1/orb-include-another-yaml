@@ -1,0 +1,5 @@
+foo: !include
+  - filepath: ./sub/array.yml
+  - filepath: ./sub/array.yml
+  - filepath: ./sub/array.yml
+    jsonpath: '$[0]'
