@@ -1,7 +1,7 @@
 description: >
   This is the default executor for include-another-yaml.
 docker:
-  - image: 'cimg/python:<<parameters.tag>>'
+  - image: 'cimg/python:<< parameters.tag >>'
 parameters:
   tag:
     default: "3.11"

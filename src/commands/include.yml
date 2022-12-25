@@ -9,11 +9,11 @@ parameters:
 
 steps:
   - s2f/str2file:
-      str: <<include(scripts/main.py)>>
+      str: << include(scripts/main.py) >>
   - run:
       name: include YAML file inside another
       environment:
-        PARAM_FILEPATH: <<parameters.filepath>>
+        PARAM_FILEPATH: << parameters.filepath >>
       command: |
         pip install pyyaml jsonpath-ng
         python str2file-out
