@@ -4,13 +4,14 @@ import yaml
 
 import jsonpath_ng
 
+
 class Import(yaml.YAMLObject):
     yaml_tag = "!include"
 
     @classmethod
     def from_yaml(cls, _, node):
         filepath = None
-        jsonpath = '$'
+        jsonpath = "$"
 
         if isinstance(node, yaml.ScalarNode):
             filepath = node.value
