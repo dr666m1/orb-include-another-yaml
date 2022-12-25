@@ -19,7 +19,7 @@ executor:
   tag: << parameters.tag >>
 
 steps:
-  - include:
+  - build:
       filepath: << parameters.filepath >>
   - continuation/continue:
       configuration_path: << parameters.filepath >>

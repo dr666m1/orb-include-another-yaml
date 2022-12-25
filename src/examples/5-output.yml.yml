@@ -1,0 +1,25 @@
+description: >
+  After other YAML files are included,
+  main.yml is looks like this.
+
+usage:
+  version: 2.1
+  jobs:
+    - jobs1-job:
+        docker:
+          image: cimg/base
+        steps:
+          - run: echo "this is jobs1.yml"
+    - jobs2-job:
+        docker:
+          image: cimg/base
+        steps:
+          - run: echo "this is jobs2.yml"
+  workflows:
+      main:
+        jobs:
+          - jobs1-job
+          - jobs2-job
+
+
+

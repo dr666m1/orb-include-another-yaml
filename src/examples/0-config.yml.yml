@@ -1,0 +1,13 @@
+description: >
+  In the simplest case, config.yml looks like this.
+  main.yml is a configuration file that will be passed to the continue API.
+
+usage:
+  version: 2.1
+  orbs:
+    iay: dr666m1/include-another-yaml@0.0.1
+  workflows:
+    setup:
+      jobs:
+        - iay/continue:
+            filepath: main.yml

@@ -1,0 +1,8 @@
+description: >
+  workflows.yml looks like this.
+
+usage:
+  main:
+    jobs:
+      - jobs1-job
+      - jobs2-job
