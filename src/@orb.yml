@@ -24,4 +24,4 @@ description: >
   With this orb, You can use !include tag to include YAML file inside another.
 
 display:
-  source_url: "https://github.com/dr666m1/orb-yaml-import"
+  source_url: "https://github.com/dr666m1/orb-yaml-bundler"

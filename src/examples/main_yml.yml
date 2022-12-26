@@ -1,4 +1,4 @@
-description: >
+description: |
   You can use !include tag to include other YAML files.
 
   When including entire YAML file, you can omit jsonpath parameter.
