@@ -8,9 +8,17 @@ usage:
   version: 2.1
   setup: true
   orbs:
-    bundler: dr666m1/yaml-bundler@0
+    yaml-bundler: dr666m1/yaml-bundler@0
+  jobs:
+    setup:
+      executor: yaml-bundler/default
+      steps:
+        - checkout
+        - yaml-bundler/bundle:
+            filepath: main.yml
+        - continuation/continue:
+            configuration_path: main.yml
   workflows:
     setup:
       jobs:
-        - bundler/continue:
-            filepath: main.yml
+        - setup

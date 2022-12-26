@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  bundler: dr666m1/yaml-bundler@dev:<<pipeline.git.revision>>
+  yaml-bundler: dr666m1/yaml-bundler@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.5
 
 filters: &filters
@@ -9,7 +9,7 @@ filters: &filters
 
 jobs:
   python-tests:
-    executor: bundler/default
+    executor: yaml-bundler/default
     steps:
       - checkout
       - run:
@@ -19,11 +19,11 @@ jobs:
             pip install pyyaml jsonpath-ng
             python -m unittest test.py
   command-tests:
-    executor: bundler/default
+    executor: yaml-bundler/default
     steps:
       - checkout
       # Testing just one YAML file is enough as all files are testted in python-tests.
-      - bundler/bundle:
+      - yaml-bundler/bundle:
           filepath: testcase/input/valid/simple.yml
 
 workflows:
