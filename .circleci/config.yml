@@ -29,7 +29,7 @@ workflows:
       - orb-tools/review:
           filters: *filters
       - orb-tools/publish:
-          orb-name: dr666m1/include-another-yaml
+          orb-name: dr666m1/yaml-bundler
           vcs-type: << pipeline.project.type >>
           requires:
             [orb-tools/lint, orb-tools/review, orb-tools/pack]

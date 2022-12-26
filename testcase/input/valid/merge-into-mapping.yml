@@ -1,0 +1,5 @@
+foo: !include
+  - filepath: ./sub/merge-into-mapping.yml
+    jsonpath: '$.one'
+  - filepath: ./sub/merge-into-mapping.yml
+    jsonpath: '$.two'
