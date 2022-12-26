@@ -69,14 +69,24 @@ class Include(yaml.YAMLObject):
 
         objs = []
         for p in param_pairs:
-            obj = param_pair2obj(p)
+            objs.append(param_pair2obj(p))
 
-            if isinstance(obj, list):
-                objs.extend(obj)
-            else:
-                objs.append(obj)
+        if all([isinstance(x, dict) for x in objs]):
+            res = {}
+            for obj in objs:
+                if res.keys().isdisjoint(obj.keys()):
+                    res.update(obj)
+                else:
+                    raise Error("got duplicate key!")
+        else:
+            res = []
+            for obj in objs:
+                if isinstance(obj, list):
+                    res.extend(obj)
+                else:
+                    res.append(obj)
 
-        return objs
+        return res
 
 
 def main(filepath=None, overwrite=True):

@@ -1,0 +1,5 @@
+foo: !include
+  - filepath: ./sub/merge-into-array.yml
+  - filepath: ./sub/merge-into-array.yml
+  - filepath: ./sub/merge-into-array.yml
+    jsonpath: '$[0]'
