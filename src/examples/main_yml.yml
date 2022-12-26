@@ -5,7 +5,7 @@ description: >
   It is even valid to omit filepath keyword (see executors section).
 
   If several YAML files are passed,
-  they are concatenated into single array (see jobs section).
+  they are merged into single array or map (see jobs and workflows section).
 
   --------------------
   # main.yml (before other files are included)
@@ -19,6 +19,10 @@ description: >
       steps: !include
         - filepath: ./jobs1.yml
         - filepath: ./jobs2.yml
+  workflows:
+    main: !inlude
+      - filepath: ./jobs.yml
+      - filepath: ./trigger.yml
 
   ---
   # constants.yml
@@ -39,6 +43,17 @@ description: >
   # steps2.yml
   - run: echo "this is only step of steps2.yml"
 
+  ---
+  # jobs.yml
+  jobs:
+    - build
+
+  ---
+  # trigger.yml
+  trigger:
+    - schedule:
+        cron: "0 0 * * *"
+
   --------------------
 
   After other YAML files are included, main.yml looks like this.
@@ -57,3 +72,10 @@ usage:
         - run: echo "this is first step of steps1.yml"
         - run: echo "this is second step of steps1.yml"
         - run: echo "this is only step of steps2.yml"
+  workflows:
+    main:
+      jobs:
+        - build
+    trigger:
+      - schedule:
+          cron: "0 0 * * *"
