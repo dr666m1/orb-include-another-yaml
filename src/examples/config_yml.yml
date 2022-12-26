@@ -7,9 +7,9 @@ description: >
 usage:
   version: 2.1
   orbs:
-    iay: dr666m1/include-another-yaml@0.0.1
+    bundler: dr666m1/include-another-yaml@0.0.1
   workflows:
     setup:
       jobs:
-        - iay/continue:
+        - bundler/continue:
             filepath: main.yml

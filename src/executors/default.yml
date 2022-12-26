@@ -1,5 +1,5 @@
 description: >
-  This is the default executor for include-another-yaml.
+  This is the default executor for yaml-bundler.
 docker:
   - image: 'cimg/python:<< parameters.tag >>'
 parameters:
