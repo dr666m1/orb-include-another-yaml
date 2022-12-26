@@ -2,9 +2,6 @@ description: >
   This command handles !include tag inside YAML file.
   The file will be overwritten.
 
-  NOTE: Consider using `continue` job if the file is used
-  as a configuration file which is passed to the continue API.
-
 parameters:
   filepath:
     type: string

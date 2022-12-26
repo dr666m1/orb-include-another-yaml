@@ -1,7 +1,6 @@
 version: 2.1
 
 orbs:
-  continuation: circleci/continuation@0.3
   s2f:
     commands:
       str2file:
