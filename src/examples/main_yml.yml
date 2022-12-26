@@ -50,7 +50,7 @@ description: >
 
   ---
   # trigger.yml
-  trigger:
+  triggers:
     - schedule:
         cron: "0 0 * * *"
 
@@ -76,6 +76,6 @@ usage:
     main:
       jobs:
         - build
-    trigger:
-      - schedule:
-          cron: "0 0 * * *"
+      triggers:
+        - schedule:
+            cron: "0 0 * * *"
