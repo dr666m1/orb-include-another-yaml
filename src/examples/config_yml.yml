@@ -6,8 +6,9 @@ description: >
 
 usage:
   version: 2.1
+  setup: true
   orbs:
-    bundler: dr666m1/yaml-bundler@0.0.1
+    bundler: dr666m1/yaml-bundler@0
   workflows:
     setup:
       jobs:

@@ -6,19 +6,11 @@ parameters:
   filepath:
     type: string
     description: "configuration file"
-  tag:
-    type: string
-    description: >
-      Pick a specific cimg/python image variant (3.11 or later is required):
-      https://hub.docker.com/r/cimg/python/tags
-    # depends on the default value of the executor
-    default: null
 
-executor:
-  name: default
-  tag: << parameters.tag >>
+executor: default
 
 steps:
+  - checkout
   - bundle:
       filepath: << parameters.filepath >>
   - continuation/continue:
