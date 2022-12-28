@@ -2,11 +2,10 @@ description: >
   In the simplest case, config.yml looks like this.
 
   NOTE: Enable dynamic config on project settings page.
-  NOTE: Don't forget `setup: true`. I don't know why, but it does not apper in this example :-(
 
 usage:
   version: 2.1
-  setup: true
+  setup: true # I don't know why, but it does not apper in this example :-(
   orbs:
     yaml-bundler: dr666m1/yaml-bundler@0
     continuation: circleci/continuation@0.3.1
