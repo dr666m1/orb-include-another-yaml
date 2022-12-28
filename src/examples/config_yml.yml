@@ -2,6 +2,7 @@ description: >
   In the simplest case, config.yml looks like this.
 
   NOTE: Enable dynamic config on project settings page.
+  NOTE: Don't forget `setup: true`. I don't know why, but it does not apper in this example :-(
 
 usage:
   version: 2.1
