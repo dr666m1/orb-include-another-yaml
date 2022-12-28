@@ -14,15 +14,18 @@ description: |
     jsonpath: '$.version'
   executors: !include ./executors.yml
   jobs:
-    build:
-      executor: main-executor
+    main-job:
+      executor: my-executor
       steps: !include
         - filepath: ./jobs1.yml
         - filepath: ./jobs2.yml
-  workflows:
-    main: !inlude
-      - filepath: ./jobs.yml
-      - filepath: ./trigger.yml
+    sub-job:
+      executor: my-executor
+      steps:
+        - run: echo 'this is only step of sub-job'
+  workflows: !inlude
+      - filepath: ./main-workflow.yml
+      - filepath: ./sub-workflow.yml
 
   ---
   # constants.yml
@@ -30,7 +33,7 @@ description: |
 
   ---
   # executors.yml
-  main-executor:
+  my-executor:
     docker:
       - image: cimg/base
 
@@ -44,15 +47,16 @@ description: |
   - run: echo "this is only step of steps2.yml"
 
   ---
-  # jobs.yml
-  jobs:
-    - build
+  # main-workflow.yml
+  main:
+    jobs:
+      - main-job
 
   ---
-  # trigger.yml
-  triggers:
-    - schedule:
-        cron: "0 0 * * *"
+  # sub-workflow.yml
+  sub:
+    jobs:
+      - sub-job
 
   --------------------
 
@@ -62,20 +66,24 @@ description: |
 usage:
   version: 2.1
   executors:
-    main-executor:
+    my-executor:
       docker:
         - image: cimg/base
   jobs:
-    build:
-      executor: main-executor
+    main-job:
+      executor: my-executor
       steps:
         - run: echo "this is first step of steps1.yml"
         - run: echo "this is second step of steps1.yml"
         - run: echo "this is only step of steps2.yml"
+    sub-job:
+      executor: my-executor
+      steps:
+        - run: echo "this is only step of sub-job"
   workflows:
-    main:
+    main-workflow:
       jobs:
-        - build
-      triggers:
-        - schedule:
-            cron: "0 0 * * *"
+        - main-job
+    sub-workflow:
+      jobs:
+        - sub-job
