@@ -1,4 +1,11 @@
 description: >
   This is the default executor for yaml-bundler.
 docker:
-  - image: cimg/python:3.11
+  - image: 'cimg/python:<< parameters.tag >>'
+parameters:
+  tag:
+    default: "3.11"
+    description: >
+      Pick a specific cimg/python image variant (3.11 or later is required):
+      https://hub.docker.com/r/cimg/python/tags
+    type: string
