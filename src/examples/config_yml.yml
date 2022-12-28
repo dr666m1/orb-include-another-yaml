@@ -9,15 +9,16 @@ usage:
   setup: true
   orbs:
     yaml-bundler: dr666m1/yaml-bundler@0
+    continuation: circleci/continuation@0.3.1
   jobs:
     setup:
       executor: yaml-bundler/default
       steps:
         - checkout
         - yaml-bundler/bundle:
-            filepath: main.yml
+            filepath: .circleci/main.yml
         - continuation/continue:
-            configuration_path: main.yml
+            configuration_path: .circleci/main.yml
   workflows:
     setup:
       jobs:
