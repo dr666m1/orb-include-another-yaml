@@ -25,7 +25,7 @@ jobs:
           at: ./dist/
       - run:
           name: adjust orb.yml
-          yq -i '.examples.config_yml.usage.setup = true' ./dist/orb.yml
+          command: yq -i '.examples.config_yml.usage.setup = true' ./dist/orb.yml
       - persist_to_workspace:
           paths:
             - orb.yml
