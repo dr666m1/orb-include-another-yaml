@@ -17,8 +17,8 @@ description: |
     main-job:
       executor: my-executor
       steps: !include
-        - filepath: ./jobs1.yml
-        - filepath: ./jobs2.yml
+        - filepath: ./steps1.yml
+        - filepath: ./steps2.yml
     sub-job:
       executor: my-executor
       steps:
@@ -35,7 +35,7 @@ description: |
   # executors.yml
   my-executor:
     docker:
-      - image: cimg/base
+      - image: cimg/base:current
 
   ---
   # steps1.yml
