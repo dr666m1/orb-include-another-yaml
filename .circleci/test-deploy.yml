@@ -34,7 +34,9 @@ jobs:
           at: ./dist/
       - run:
           name: adjust orb.yml
-          command: yq -i '.examples.config_yml.usage.setup = true' ./dist/orb.yml
+          command: |
+            yq -i '.examples.config_yml.usage.setup = true' ./dist/orb.yml
+            yq -i '.examples.main_yml.executors.my-executor.docker[0] = "cimg/base:current"' ./dist/orb.yml
       - persist_to_workspace:
           paths:
             - orb.yml
