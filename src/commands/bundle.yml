@@ -8,12 +8,12 @@ parameters:
     description: "YAML file which includes !include tag"
 
 steps:
-  - s2f/str2file:
-      str: << include(scripts/main.py) >>
+  - util/save:
+      in: << include(scripts/main.py) >>
   - run:
       name: 'handle !include tag'
       environment:
         PARAM_FILEPATH: << parameters.filepath >>
       command: |
         pip install pyyaml jsonpath-ng
-        python str2file-out
+        python util-save-out

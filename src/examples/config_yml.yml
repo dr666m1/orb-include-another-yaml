@@ -1,6 +1,5 @@
 description: >
   In the simplest case, config.yml looks like this.
-  main.yml is a configuration file that will be passed to the continue API.
 
   NOTE: Enable dynamic config on project settings page.
 

@@ -1,21 +1,21 @@
 version: 2.1
 
 orbs:
-  s2f:
+  util:
     commands:
-      str2file:
+      save:
         parameters:
-          str:
+          in:
             type: string
           out:
             type: string
-            default: str2file-out
+            default: util-save-out
         steps:
           - run:
-              name: save str as a file
+              name: save input string as a file
               command: |
                 cat \<<EOF  > << parameters.out >>
-                << parameters.str >>
+                << parameters.in >>
                 EOF
 
 description: >

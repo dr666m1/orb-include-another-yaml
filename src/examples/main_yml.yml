@@ -24,8 +24,8 @@ description: |
       steps:
         - run: echo 'this is only step of sub-job'
   workflows: !inlude
-      - filepath: ./main-workflow.yml
-      - filepath: ./sub-workflow.yml
+    - filepath: ./main-workflow.yml
+    - filepath: ./sub-workflow.yml
 
   ---
   # constants.yml
@@ -48,13 +48,13 @@ description: |
 
   ---
   # main-workflow.yml
-  main:
+  main-workflow:
     jobs:
       - main-job
 
   ---
   # sub-workflow.yml
-  sub:
+  sub-workflow:
     jobs:
       - sub-job
 
