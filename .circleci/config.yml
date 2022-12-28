@@ -16,6 +16,20 @@ jobs:
       - checkout
       - run: |
           python -m black --check --diff ./src/scripts
+  adjust-orb:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - attach_workspace:
+          # default orb-dir
+          at: ./dist/
+      - run:
+          name: adjust orb.yml
+          yq -i '.examples.config_yml.usage.setup = true' ./dist/orb.yml
+      - persist_to_workspace:
+          paths:
+            - orb.yml
+          root: ./dist/
 
 workflows:
   lint-pack:
@@ -27,6 +41,8 @@ workflows:
       - orb-tools/pack:
           filters: *filters
       - orb-tools/review:
+          filters: *filters
+      - adjust-orb:
           filters: *filters
       - orb-tools/publish:
           orb-name: dr666m1/yaml-bundler
