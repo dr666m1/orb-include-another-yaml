@@ -5,10 +5,10 @@ description: >
 
 usage:
   version: 2.1
-  setup: true # I don't know why, but it does not apper in this example :-(
+  setup: true
   orbs:
     yaml-bundler: dr666m1/yaml-bundler@0
-    continuation: circleci/continuation@0.3.1
+    continuation: circleci/continuation@0
   jobs:
     setup:
       executor: yaml-bundler/default
