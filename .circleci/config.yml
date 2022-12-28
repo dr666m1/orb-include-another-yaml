@@ -42,13 +42,14 @@ workflows:
           filters: *filters
       - adjust-orb:
           filters: *filters
+          requires: orb-tools/pack
       - orb-tools/review:
           filters: *filters
       - orb-tools/publish:
           orb-name: dr666m1/yaml-bundler
           vcs-type: << pipeline.project.type >>
           requires:
-            [orb-tools/lint, orb-tools/review, orb-tools/pack]
+            [orb-tools/lint, orb-tools/review, adjust-orb]
           context: orb-publishing
           filters: *filters
       - orb-tools/continue:
