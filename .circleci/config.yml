@@ -42,7 +42,8 @@ workflows:
           filters: *filters
       - adjust-orb:
           filters: *filters
-          requires: orb-tools/pack
+          requires:
+            - orb-tools/pack
       - orb-tools/review:
           filters: *filters
       - orb-tools/publish:
