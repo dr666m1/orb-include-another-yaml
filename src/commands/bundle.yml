@@ -8,8 +8,5 @@ parameters:
     description: "YAML file which includes !include tag"
 
 steps:
-  - run:
-      name: 'handle !include tag'
-      command: |
-        pip install yamlbundler==0.0.1
-        yaml-bundler << parameters.filepath >>
+  - run: pip install yamlbundler==0.0.1
+  - run: yaml-bundler << parameters.filepath >>
