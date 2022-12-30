@@ -1,0 +1,17 @@
+version: !include
+  filepath: ./constants.yml
+  jsonpath: '$.version'
+executors: !include ./executors.yml
+jobs:
+  main-job:
+    executor: my-executor
+    steps: !include
+      - filepath: ./steps1.yml
+      - filepath: ./steps2.yml
+  sub-job:
+    executor: my-executor
+    steps:
+      - run: echo 'this is only step of sub-job'
+workflows: !include
+  - filepath: ./main-workflow.yml
+  - filepath: ./sub-workflow.yml

@@ -1,0 +1,3 @@
+sub-workflow:
+  jobs:
+    - sub-job

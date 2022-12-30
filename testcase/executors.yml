@@ -1,0 +1,3 @@
+my-executor:
+  docker:
+    - image: cimg/base:current

@@ -13,7 +13,8 @@ jobs:
     steps:
       - checkout
       - yaml-bundler/bundle:
-          filepath: testcase/input/valid/simple.yml
+          filepath: testcase/main.yml
+      - run: cat testcase/main.yml
 
 workflows:
   test-deploy:
