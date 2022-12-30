@@ -29,13 +29,13 @@ jobs:
           name: adjust orb.yml
           command: |
             cat ./src/examples/config_yml.yml | \
-            yq -i ea 'select(fileIndex==0).examples.config_yml.yml = select(fileIndex==1) | select(fileIndex==0)' \
+            yq -i ea 'select(fileIndex==0).examples.config_yml = select(fileIndex==1) | select(fileIndex==0)' \
             ./dist/orb.yml -
       - run:
           name: adjust orb.yml
           command: |
             cat ./src/examples/main_yml.yml | \
-            yq -i ea 'select(fileIndex==0).examples.main_yml.yml = select(fileIndex==1) | select(fileIndex==0)' \
+            yq -i ea 'select(fileIndex==0).examples.main_yml = select(fileIndex==1) | select(fileIndex==0)' \
             ./dist/orb.yml -
       - run:
           name: check orb.yml
