@@ -2,7 +2,6 @@ version: 2.1
 orbs:
   yaml-bundler: dr666m1/yaml-bundler@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.5
-  circleci-cli: circleci/circleci-cli@0.1.9
 
 filters: &filters
   tags:
