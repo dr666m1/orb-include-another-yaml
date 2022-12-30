@@ -16,46 +16,48 @@ jobs:
       - yaml-bundler/bundle:
           filepath: testcase/main.yml
       - run: cat testcase/main.yml
-  pack:
-    adjust-orb:
-      docker:
-        - image: cimg/base:current
-    steps:
-      - attach_workspace:
-          # default orb-dir
-          at: ./dist/
-      # https://mikefarah.gitbook.io/yq/operators/assign-update#update-node-from-another-file
-      - run:
-          name: adjust orb.yml
-          command: |
-            cat ./src/examples/config_yml.yml | \
-            yq -i ea 'select(fileIndex==0).examples.config_yml.yml = select(fileIndex==1)' orb.yml -
-      - run:
-          name: adjust orb.yml
-          command: |
-            cat ./src/examples/main_yml.yml | \
-            yq -i ea 'select(fileIndex==0).examples.main_yml.yml = select(fileIndex==1)' orb.yml -
-      - run:
-          name: check orb.yml
-          command: cat orb.yml
-      - persist_to_workspace:
-          paths:
-            - orb.yml
-          root: ./dist/
+  adjust-orb:
+    docker:
+      - image: cimg/base:current
+  steps:
+    - attach_workspace:
+        # default orb-dir
+        at: ./dist/
+    # https://mikefarah.gitbook.io/yq/operators/assign-update#update-node-from-another-file
+    - run:
+        name: adjust orb.yml
+        command: |
+          cat ./src/examples/config_yml.yml | \
+          yq -i ea 'select(fileIndex==0).examples.config_yml.yml = select(fileIndex==1)' orb.yml -
+    - run:
+        name: adjust orb.yml
+        command: |
+          cat ./src/examples/main_yml.yml | \
+          yq -i ea 'select(fileIndex==0).examples.main_yml.yml = select(fileIndex==1)' orb.yml -
+    - run:
+        name: check orb.yml
+        command: cat orb.yml
+    - persist_to_workspace:
+        paths:
+          - orb.yml
+        root: ./dist/
 
 workflows:
   test-deploy:
     jobs:
       - command-tests:
           filters: *filters
-      - pack:
+      - orb-tools/pack:
           filters: *filters
+      - adjust-orb:
+          requires:
+            - orb-tools/pack
       - orb-tools/publish:
           orb-name: dr666m1/yaml-bundler
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
-            - pack
+            - adjust-orb
             - command-tests
           context: orb-publishing
           filters:
