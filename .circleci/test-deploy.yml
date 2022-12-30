@@ -19,28 +19,28 @@ jobs:
   adjust-orb:
     docker:
       - image: cimg/base:current
-  steps:
-    - attach_workspace:
-        # default orb-dir
-        at: ./dist/
-    # https://mikefarah.gitbook.io/yq/operators/assign-update#update-node-from-another-file
-    - run:
-        name: adjust orb.yml
-        command: |
-          cat ./src/examples/config_yml.yml | \
-          yq -i ea 'select(fileIndex==0).examples.config_yml.yml = select(fileIndex==1)' orb.yml -
-    - run:
-        name: adjust orb.yml
-        command: |
-          cat ./src/examples/main_yml.yml | \
-          yq -i ea 'select(fileIndex==0).examples.main_yml.yml = select(fileIndex==1)' orb.yml -
-    - run:
-        name: check orb.yml
-        command: cat orb.yml
-    - persist_to_workspace:
-        paths:
-          - orb.yml
-        root: ./dist/
+    steps:
+      - attach_workspace:
+          # default orb-dir
+          at: ./dist/
+      # https://mikefarah.gitbook.io/yq/operators/assign-update#update-node-from-another-file
+      - run:
+          name: adjust orb.yml
+          command: |
+            cat ./src/examples/config_yml.yml | \
+            yq -i ea 'select(fileIndex==0).examples.config_yml.yml = select(fileIndex==1)' orb.yml -
+      - run:
+          name: adjust orb.yml
+          command: |
+            cat ./src/examples/main_yml.yml | \
+            yq -i ea 'select(fileIndex==0).examples.main_yml.yml = select(fileIndex==1)' orb.yml -
+      - run:
+          name: check orb.yml
+          command: cat orb.yml
+      - persist_to_workspace:
+          paths:
+            - orb.yml
+          root: ./dist/
 
 workflows:
   test-deploy:
