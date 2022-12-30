@@ -68,7 +68,7 @@ usage:
   executors:
     my-executor:
       docker:
-        - image: cimg/base
+        - image: cimg/base:current
   jobs:
     main-job:
       executor: my-executor
