@@ -3,17 +3,29 @@ setup: true
 orbs:
   orb-tools: circleci/orb-tools@11.5
   shellcheck: circleci/shellcheck@3.1
+  circleci-cli: circleci/circleci-cli@0.1.9
 
 filters: &filters
   tags:
     only: /.*/
+
+jobs:
+  pack:
+    executor: circleci-cli/default
+    steps:
+      - checkout
+      - run: circleci config pack src > orb.yml
+      - persist_to_workspace:
+          paths:
+            - orb.yml
+          root: ./dist/
 
 workflows:
   lint-pack:
     jobs:
       - orb-tools/lint:
           filters: *filters
-      - orb-tools/pack:
+      - pack:
           filters: *filters
       - orb-tools/review:
           filters: *filters
@@ -21,7 +33,7 @@ workflows:
           orb-name: dr666m1/yaml-bundler
           vcs-type: << pipeline.project.type >>
           requires:
-            [orb-tools/lint, orb-tools/review, orb-tools/pack]
+            [orb-tools/lint, orb-tools/review, pack]
           context: orb-publishing
           filters: *filters
       - orb-tools/continue:
