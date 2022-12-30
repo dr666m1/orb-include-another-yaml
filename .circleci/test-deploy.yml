@@ -37,7 +37,7 @@ jobs:
             yq -i ea 'select(fileIndex==0).examples.main_yml.yml = select(fileIndex==1)' ./dist/orb.yml -
       - run:
           name: check orb.yml
-          command: cat orb.yml
+          command: cat ./dist/orb.yml
       - persist_to_workspace:
           paths:
             - orb.yml
