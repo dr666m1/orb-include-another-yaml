@@ -1,6 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-cd $(dirname $0)
 
 if [[ -z $PARAM_OUT ]]; then
   yamlbundler -i $PARAM_FILEPATH
