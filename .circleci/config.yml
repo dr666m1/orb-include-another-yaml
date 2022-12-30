@@ -14,7 +14,8 @@ jobs:
     executor: circleci-cli/default
     steps:
       - checkout
-      - run: circleci config pack src > orb.yml
+      - run: mkdir dist
+      - run: circleci config pack src > dist/orb.yml
       - persist_to_workspace:
           paths:
             - orb.yml
