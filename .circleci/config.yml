@@ -8,20 +8,9 @@ filters: &filters
   tags:
     only: /.*/
 
-jobs:
-  python-fmt:
-    docker:
-      - image: cytopia/black
-    steps:
-      - checkout
-      - run: |
-          python -m black --check --diff ./src/scripts
-
 workflows:
   lint-pack:
     jobs:
-      - python-fmt:
-          filters: *filters
       - orb-tools/lint:
           filters: *filters
       - orb-tools/pack:

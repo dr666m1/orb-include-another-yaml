@@ -8,12 +8,8 @@ parameters:
     description: "YAML file which includes !include tag"
 
 steps:
-  - util/save:
-      in: << include(scripts/main.py) >>
   - run:
       name: 'handle !include tag'
-      environment:
-        PARAM_FILEPATH: << parameters.filepath >>
       command: |
-        pip install pyyaml jsonpath-ng
-        python util-save-out
+        pip install yaml-bundler
+        yaml-bundler << parameters.filepath >>

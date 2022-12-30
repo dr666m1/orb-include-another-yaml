@@ -1,3 +1,0 @@
-foo: !include
-  - ./sub/duplicate-key.yml
-  - ./sub/duplicate-key.yml

@@ -1,23 +1,5 @@
 version: 2.1
 
-orbs:
-  util:
-    commands:
-      save:
-        parameters:
-          in:
-            type: string
-          out:
-            type: string
-            default: util-save-out
-        steps:
-          - run:
-              name: save input string as a file
-              command: |
-                cat \<<EOF  > << parameters.out >>
-                << parameters.in >>
-                EOF
-
 description: >
   This orb makes it easy to generate Dynamic Configuration.
   With this orb, You can use !include tag to include YAML file inside another.

@@ -1,8 +1,0 @@
-foo: baz
-qux:
-  - quux
-  - corge
-grault: quux
-garply:
-  - quux
-  - corge

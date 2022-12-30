@@ -8,59 +8,26 @@ filters: &filters
     only: /.*/
 
 jobs:
-  python-tests:
-    executor: yaml-bundler/default
-    steps:
-      - checkout
-      - run:
-          name: exec unittest
-          working_directory: src/scripts
-          command: |
-            pip install pyyaml jsonpath-ng
-            python -m unittest test.py
   command-tests:
     executor: yaml-bundler/default
     steps:
       - checkout
-      # Testing just one YAML file is enough as all files are testted in python-tests.
       - yaml-bundler/bundle:
           filepath: testcase/input/valid/simple.yml
-  adjust-orb:
-    docker:
-      - image: cimg/base:current
-    steps:
-      - attach_workspace:
-          # default orb-dir
-          at: ./dist/
-      - run:
-          name: adjust orb.yml
-          command: |
-            yq -i '.examples.config_yml.usage.setup = true' ./dist/orb.yml
-            yq -i '.examples.main_yml.executors.my-executor.docker[0] = "cimg/base:current"' ./dist/orb.yml
-      - persist_to_workspace:
-          paths:
-            - orb.yml
-          root: ./dist/
 
 workflows:
   test-deploy:
     jobs:
-      - python-tests:
-          filters: *filters
       - command-tests:
           filters: *filters
       - orb-tools/pack:
           filters: *filters
-      - adjust-orb:
-          filters: *filters
-          requires:
-            - orb-tools/pack
       - orb-tools/publish:
           orb-name: dr666m1/yaml-bundler
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
-            - adjust-orb
+            - orb-tools/pack
             - command-tests
           context: orb-publishing
           filters:
