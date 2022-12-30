@@ -9,7 +9,7 @@ parameters:
   out:
     type: string
     description: "output file path"
-    default: << parameters.filepath >>
+    default: ""
 
 steps:
   - run:
@@ -17,4 +17,7 @@ steps:
       command: pip install yamlbundler==0.0.1
   - run:
       name: exec YAMLBundler
-      command: yamlbundler -i << parameters.out >>
+      environment:
+        PARAM_FILEPATH: << parameters.filepath >>
+        PARAM_OUT: << parameters.out >>
+      command: << include(scripts/bundle.sh) >>
