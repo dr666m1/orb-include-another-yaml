@@ -58,6 +58,7 @@ workflows:
       - adjust-orb:
           requires:
             - orb-tools/pack
+          filters: *filters
       - orb-tools/publish:
           orb-name: dr666m1/yaml-bundler
           vcs-type: << pipeline.project.type >>
