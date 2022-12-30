@@ -13,4 +13,4 @@ steps:
       command: pip install yamlbundler==0.0.1
   - run:
       name: exec YAMLBundler
-      command: yamlbundler << parameters.filepath >>
+      command: yamlbundler -i << parameters.filepath >>
