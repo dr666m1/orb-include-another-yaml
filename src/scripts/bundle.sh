@@ -1,5 +1,3 @@
-set -euo pipefail
-
 if [[ -z $PARAM_OUT ]]; then
   yamlbundler -i $PARAM_FILEPATH
 else
