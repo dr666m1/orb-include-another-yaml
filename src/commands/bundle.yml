@@ -11,5 +11,5 @@ steps:
   - run:
       name: 'handle !include tag'
       command: |
-        pip install yaml-bundler
+        pip install yamlbundler==0.0.1
         yaml-bundler << parameters.filepath >>
