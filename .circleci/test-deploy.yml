@@ -20,6 +20,7 @@ jobs:
     docker:
       - image: cimg/base:current
     steps:
+      - checkout
       - attach_workspace:
           # default orb-dir
           at: ./dist/
