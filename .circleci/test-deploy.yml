@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   yaml-bundler: dr666m1/yaml-bundler@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.5
+  circleci-cli: circleci/circleci-cli@0.1.9
 
 filters: &filters
   tags:
@@ -15,20 +16,30 @@ jobs:
       - yaml-bundler/bundle:
           filepath: testcase/main.yml
       - run: cat testcase/main.yml
+  pack:
+    executor: circleci-cli/default
+    steps:
+      - checkout
+      - run: mkdir dist
+      - run: circleci config pack src > dist/orb.yml
+      - persist_to_workspace:
+          paths:
+            - orb.yml
+          root: ./dist/
 
 workflows:
   test-deploy:
     jobs:
       - command-tests:
           filters: *filters
-      - orb-tools/pack:
+      - pack:
           filters: *filters
       - orb-tools/publish:
           orb-name: dr666m1/yaml-bundler
           vcs-type: << pipeline.project.type >>
           pub-type: production
           requires:
-            - orb-tools/pack
+            - pack
             - command-tests
           context: orb-publishing
           filters:
