@@ -60,7 +60,8 @@ description: |
 
   --------------------
 
-  After other YAML files are included, main.yml looks like this.
+  After other YAML files are included, main.yml looks like this
+  (indentation and key order may differ).
 
 
 usage:
