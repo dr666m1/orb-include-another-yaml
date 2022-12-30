@@ -15,6 +15,10 @@ jobs:
       - yaml-bundler/bundle:
           filepath: testcase/main.yml
       - run: cat testcase/main.yml
+      - yaml-bundler/bundle:
+          filepath: testcase/main.yml
+          out: ./out.yml
+      - run: cat ./out.yml
   adjust-orb:
     docker:
       - image: cimg/base:current

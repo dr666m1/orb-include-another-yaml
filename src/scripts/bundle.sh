@@ -1,4 +1,3 @@
-#!/bin/bash
 set -euo pipefail
 
 if [[ -z $PARAM_OUT ]]; then
