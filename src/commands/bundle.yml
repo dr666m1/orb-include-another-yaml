@@ -1,11 +1,15 @@
 description: >
   This command handles !include tag inside YAML file.
-  The file will be overwritten.
+  If out parameter is not specified , original file will be overwritten.
 
 parameters:
   filepath:
     type: string
     description: "YAML file which includes !include tag"
+  out:
+    type: string
+    description: "output file path"
+    default: << parameters.filepath >>
 
 steps:
   - run:
@@ -13,4 +17,4 @@ steps:
       command: pip install yamlbundler==0.0.1
   - run:
       name: exec YAMLBundler
-      command: yamlbundler -i << parameters.filepath >>
+      command: yamlbundler -i << parameters.out >>
