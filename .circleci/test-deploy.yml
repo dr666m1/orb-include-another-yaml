@@ -17,16 +17,16 @@ commands:
         default: ''
       expected:
         type: string
-    environment:
-      PARAM_FILEPATH: << parameters.filepath >>
-      PARAM_OUT: << parameters.out >>
-      PARAM_EXPECTED: << parameters.expected >>
     steps:
       - checkout
       - yaml-bundler/bundle:
           filepath: << parameters.filepath >
           out: << parameters.out >>
       - run:
+          environment:
+            PARAM_FILEPATH: << parameters.filepath >>
+            PARAM_OUT: << parameters.out >>
+            PARAM_EXPECTED: << parameters.expected >>
           command: |
             if [ -z $PARAM_OUT ]; then
               actual=$PARAM_FILEPATH
