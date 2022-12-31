@@ -1,6 +1,4 @@
-version: !include
-  filepath: ./sub.yml
-  jsonpath: '$.version'
+version: 2.1
 jobs:
   main-job:
     docker:

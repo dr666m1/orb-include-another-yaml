@@ -7,18 +7,49 @@ filters: &filters
   tags:
     only: /.*/
 
+commands:
+  command-test:
+    parameters:
+      filepath:
+        type: string
+      out:
+        type: string
+        default: ''
+      expected:
+        type: string
+    environment:
+      PARAM_FILEPATH: << parameters.filepath >>
+      PARAM_OUT: << parameters.out >>
+      PARAM_EXPECTED: << parameters.expected >>
+    steps:
+      - checkout
+      - yaml-bundler/bundle:
+          filepath: << parameters.filepath >
+          out: << parameters.out >>
+      - run:
+          command: |
+            if [ -z $PARAM_OUT ]; then
+              actual=$PARAM_FILEPATH
+            else
+              actual=$PARAM_OUT
+            fi
+            cat $actual
+            diff \
+            <(cat yq 'sort_keys(..)' $actual) \
+            <(cat yq -P 'sort_keys(..)' $PARAM_EXPECTED)>
+
 jobs:
   command-tests:
     executor: yaml-bundler/default
     steps:
-      - checkout
-      - yaml-bundler/bundle:
+      - command-test:
           filepath: testcase/main.yml
-      - run: cat testcase/main.yml
-      - yaml-bundler/bundle:
+          expected: testcase/expected.yml
+      - command-test:
           filepath: testcase/main.yml
-          out: ./out.yml
-      - run: cat ./out.yml
+          out: temp.yml
+          expected: testcase/expected.yml
+  # some keys in .examples are missing without this job :-(
   adjust-orb:
     docker:
       - image: cimg/base:current

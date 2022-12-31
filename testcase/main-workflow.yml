@@ -1,3 +1,0 @@
-main-workflow:
-  jobs:
-    - main-job
