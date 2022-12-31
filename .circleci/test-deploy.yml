@@ -23,6 +23,7 @@ commands:
           filepath: << parameters.filepath >>
           out: << parameters.out >>
       - run:
+          name: check diff
           environment:
             PARAM_FILEPATH: << parameters.filepath >>
             PARAM_OUT: << parameters.out >>
