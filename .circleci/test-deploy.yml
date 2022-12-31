@@ -35,8 +35,8 @@ commands:
             fi
             cat $actual
             diff \
-            <(cat yq 'sort_keys(..)' $actual) \
-            <(cat yq -P 'sort_keys(..)' $PARAM_EXPECTED)>
+              <(yq -P 'sort_keys(..)' $actual) \
+              <(yq -P 'sort_keys(..)' $PARAM_EXPECTED)>
 
 jobs:
   command-tests:
