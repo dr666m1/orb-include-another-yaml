@@ -35,9 +35,11 @@ commands:
               actual=$PARAM_OUT
             fi
             cat $actual
+            # https://mikefarah.gitbook.io/yq/operators/recursive-descent-glob#match-values-form-..
+            # https://mikefarah.gitbook.io/yq/operators/comment-operators#remove-strip-all-comments
             diff \
-              <(yq -P 'sort_keys(..)' $actual) \
-              <(yq -P 'sort_keys(..)' $PARAM_EXPECTED)
+              <(yq -P 'sort_keys(..) | ... style="single" | ... comments=""' $actual) \
+              <(yq -P 'sort_keys(..) | ... style="single" | ... comments=""' $PARAM_EXPECTED)
 
 jobs:
   command-tests:
