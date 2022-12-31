@@ -20,7 +20,7 @@ commands:
     steps:
       - checkout
       - yaml-bundler/bundle:
-          filepath: << parameters.filepath >
+          filepath: << parameters.filepath >>
           out: << parameters.out >>
       - run:
           environment:
